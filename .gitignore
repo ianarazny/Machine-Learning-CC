@@ -1,3 +1,4 @@
 /ml/data
 /ml/data_processed
 /ml/data_normalized
+.env

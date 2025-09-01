@@ -1,10 +1,17 @@
-# discover_dbs.py
 import psycopg
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-conn = psycopg.connect(
-    host="localhost", port=15432,
-    dbname="metrics_db", user="postgres", password="postgres"
+
+conn = dict(
+    host=os.getenv("DB_HOST"),
+    port=os.getenv("DB_PORT"),
+    dbname=os.getenv("DB_NAME"),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
 )
+
 with conn, conn.cursor() as cur:
     cur.execute("""
         SELECT datname, pg_get_userbyid(datdba) AS owner

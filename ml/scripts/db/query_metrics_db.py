@@ -1,9 +1,15 @@
 import psycopg
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 
 CONN = dict(
-    host="localhost", port=15432,
-    dbname="metrics_db",
-    user="postgres", password="postgres",
+    host=os.getenv("DB_HOST"),
+    port=os.getenv("DB_PORT"),
+    dbname=os.getenv("DB_NAME"),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
 )
 
 with psycopg.connect(**CONN) as conn, conn.cursor() as cur:
@@ -25,7 +31,6 @@ with psycopg.connect(**CONN) as conn, conn.cursor() as cur:
     for s, t in tables:
         print(f" - {s}.{t}")
 
-    # 3) (Opcional) Si esperás una tabla 'public.sys_metrics', verla y muestrear
     cur.execute("SELECT to_regclass('public.sys_metrics')")
     if cur.fetchone()[0]:
         print("\npublic.sys_metrics existe")

@@ -1,8 +1,16 @@
-# last_n.py
 import psycopg
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-CONN = dict(host="localhost", port=15432, dbname="metrics_db",
-            user="postgres", password="postgres")
+
+CONN = dict(
+    host=os.getenv("DB_HOST"),
+    port=os.getenv("DB_PORT"),
+    dbname=os.getenv("DB_NAME"),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
+)
 
 qry = """
 SELECT "timestamp", loadavg_1min, eno1_rx_bytes, eno1_tx_bytes
