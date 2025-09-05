@@ -3,6 +3,13 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+QUERY = """
+SELECT ts_1s AS ts, src_ip, dst_ip, src_port, dst_port, protocol,
+       throughput_bps_t, pps_t, y_bps_next_1s
+FROM training_bps_h1s
+WHERE ts_1s IS NOT NULL
+ORDER BY ts_1s;
+"""
 
 CONN = dict(
     host=os.getenv("DB_HOST"),
