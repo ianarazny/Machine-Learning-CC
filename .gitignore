@@ -1,6 +1,9 @@
 /ml/data
 /ml/data_processed
 /ml/data_normalized
-.envml/notebooks/*.joblib
+.env
+ml/notebooks/*.joblib
 /ml/scripts/data_analysis/
 /ml/notebooks/models/
+/ml/models
+ml/models/*.joblib
